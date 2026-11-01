@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "supabase-lab"
+version = "0.1.0"
+description = "ETL pipelines for Supabase loading and transformations"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas==3.0.6",
+    "pydantic==2.14.1",
+    "psycopg[binary]==3.2.10",
+    "supabase==2.32.0",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["common*"]

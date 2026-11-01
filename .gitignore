@@ -1,0 +1,10 @@
+env_fin/
+.venv/
+venv/
+__pycache__/
+*.pyc
+.env
+.env.example
+Sample_data/
+push_debug.log
+.vscode/
