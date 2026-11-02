@@ -21,7 +21,7 @@ if __name__ == "__main__":
     try:
         if not DB_URL:
             raise ValueError(
-                "Database URL is required. Set LINK_POSTGREE_DB, SUPABASE_DB_URL, or DATABASE_URL."
+                "Database URL is required. Set LINK_POSTGREE_DB."
             )
 
         conn = connect__postgres(DB_URL)

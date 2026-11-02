@@ -8,3 +8,5 @@ __pycache__/
 Sample_data/
 push_debug.log
 .vscode/
+*.egg-info/
+*.egg

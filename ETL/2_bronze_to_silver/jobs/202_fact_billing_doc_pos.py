@@ -13,7 +13,7 @@ SQL_PATH = STAGE_ROOT / "sql" / "202_fact_billing_doc_pos.sql"
 def main() -> None:
     if not DB_URL:
         raise ValueError(
-            "Database URL is required. Set LINK_POSTGREE_DB, SUPABASE_DB_URL, or DATABASE_URL."
+            "Database URL is required. Set LINK_POSTGREE_DB."
         )
 
     conn = connect__postgres(DB_URL)

@@ -21,7 +21,7 @@ git clone <repository-url>
 ## 3. Open a terminal in the repository root
 
 ```powershell
-cd supabase-lab
+cd sap-postgres-analytics
 ```
 
 ## 3.1 Keep the environment out of Git

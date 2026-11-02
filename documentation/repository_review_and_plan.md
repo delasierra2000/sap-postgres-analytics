@@ -1,7 +1,7 @@
 # Repository Review and Portfolio Plan
 
 Date: 2026-11-01
-Project: supabase-lab
+Project: sap-postgres-analytics
 Objective: make this repository portfolio-ready to showcase ETL engineering and reporting capabilities.
 
 ## Executive Summary
@@ -24,73 +24,8 @@ If these are fixed, the project can become a strong portfolio piece with:
 
 ## Findings (Prioritized)
 
-### 1) Critical: Plaintext database credentials committed in source code
 
-Evidence:
-- ETL/1_ingestion/10_create_schema_tables.py (DB_URL hardcoded)
-- ETL/1_ingestion/11_sap_catalog.py (DB_URL hardcoded)
-- ETL/2_bronze_to_silver/20_dimpliente.py (DB_URL hardcoded)
-
-Risk:
-- security exposure,
-- poor engineering signal in portfolio review,
-- unsafe for collaboration and CI.
-
-Required fix:
-- use environment variables only (DATABASE_URL and/or SUPABASE_DB_URL),
-- remove credentials from Git history if possible.
-
----
-
-### 2) Critical: Empty-database bootstrap currently fails due to missing SQL file reference
-
-Evidence:
-- ETL/1_ingestion/10_create_schema_tables.py points to sql/01_create_tables.sql
-- actual existing file is ETL/1_ingestion/sql/10_create_tables.sql
-
-Risk:
-- first run on empty PostgreSQL fails,
-- repository is not reproducible.
-
-Required fix:
-- align SQL_PATH with real file,
-- add one canonical bootstrap command that always works from clean DB.
-
----
-
-### 3) Critical: Column contract mismatch between ingestion, bronze schema, and silver transform
-
-Evidence:
-- Ingestion mapping for vbrk uses kunag in ETL/1_ingestion/11_sap_catalog.py
-- Bronze vbrk DDL defines kunnr in ETL/1_ingestion/sql/10_create_tables.sql
-- Silver fact SQL selects kunag from bronze.vbrk in ETL/2_bronze_to_silver/sql/20_dim_cliente.sql
-
-Risk:
-- load/runtime failures,
-- inconsistent business semantics,
-- untrusted reporting results.
-
-Required fix:
-- define and enforce one canonical customer key column contract end-to-end.
-
----
-
-### 4) High: Silver table creation is separated from transform execution
-
-Evidence:
-- ETL/2_bronze_to_silver/20_dimpliente.py executes only 20_dim_cliente.sql
-- silver DDL is in ETL/2_bronze_to_silver/sql/20_create_tables.sql
-
-Risk:
-- transforms fail unless manual pre-step is run,
-- brittle onboarding.
-
-Required fix:
-- include silver DDL in bootstrap sequence (idempotent) before DML transforms.
-
----
-
-### 5) High: Portfolio documentation is too thin at root and tests are missing
+### 1) High: Portfolio documentation is too thin at root and tests are missing
 
 Evidence:
 - README.md currently contains only "hola"
@@ -104,36 +39,6 @@ Required fix:
 - full root README with architecture, runbook, expected outputs,
 - add smoke/unit/integration test scaffolding.
 
----
-
-### 6) Medium: SQL asset duplication and ambiguity
-
-Evidence:
-- ETL/1_ingestion/sql/10_create_tables.sql
-- ETL/1_ingestion/sql/create_tables copy.sql
-- ETL/1_ingestion/sql/alter_tables.sql is empty
-
-Risk:
-- uncertainty about authoritative schema,
-- maintenance drift.
-
-Required fix:
-- keep one canonical DDL per stage,
-- remove or archive deprecated SQL files clearly.
-
----
-
-### 7) Medium: SQL runner prints full SQL text to logs
-
-Evidence:
-- common/db_load.py prints entire SQL contents before execution.
-
-Risk:
-- noisy logs,
-- potential leakage of sensitive SQL/procedural logic in shared logs.
-
-Required fix:
-- log filename and execution status, not full SQL body by default.
 
 ## Structural Critique (Portfolio Perspective)
 
@@ -166,62 +71,10 @@ All in a predictable, documented flow.
 
 ## Implementation Plan
 
-### Phase 1: Security + Bootstrap Reliability (P0)
-
-1. Remove all hardcoded DB URLs and read only from environment.
-2. Fix ingestion schema SQL path mismatch.
-3. Create one ordered bootstrap runner:
-   - bronze schema/tables,
-   - silver schema/tables,
-   - optional seed/reference data.
-4. Make all bootstrap SQL idempotent.
-
-Deliverable:
-- clean first-run setup from empty PostgreSQL.
 
 ---
 
-### Phase 2: Data Contract Consistency (P0)
-
-1. Standardize customer key fields across bronze and silver (kunnr vs kunag decision).
-2. Update ingestion mapping and transform SQL to match canonical contract.
-3. Add schema comments/data dictionary for key business fields.
-
-Deliverable:
-- consistent model and reliable transformations.
-
----
-
-### Phase 3: Repository Organization (P1)
-
-1. Define canonical SQL naming convention (example: 010_, 020_, 030_).
-2. Remove duplicate/obsolete SQL files.
-3. Add stage-level README files in ETL folders:
-   - purpose,
-   - inputs,
-   - outputs,
-   - run commands.
-
-Deliverable:
-- clean and navigable project structure.
-
----
-
-### Phase 4: Orchestration (P1)
-
-Chosen direction: Dagster or Airflow.
-
-1. Implement pipeline DAG/assets with explicit dependencies:
-   - bootstrap -> bronze ingest -> silver transforms -> reporting marts.
-2. Add local run instructions and dependency graph screenshot/export.
-3. Add retry/failure behavior and basic logging strategy.
-
-Deliverable:
-- production-like orchestration story for portfolio.
-
----
-
-### Phase 5: Data Quality and Testing (P1)
+### Phase 1: Data Quality and Testing (P1)
 
 1. Add data quality checks:
    - key not null,
@@ -237,7 +90,7 @@ Deliverable:
 
 ---
 
-### Phase 6: Reporting Showcase (P1)
+### Phase 2: Reporting Showcase (P1)
 
 Chosen artifact direction: BI dashboard docs/exports.
 
@@ -258,7 +111,7 @@ Deliverable:
 
 ---
 
-### Phase 7: Portfolio Storytelling + CI (P2)
+### Phase 3: Portfolio Storytelling + CI (P2)
 
 1. Replace root README with complete project narrative:
    - architecture diagram,

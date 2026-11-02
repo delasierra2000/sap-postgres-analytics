@@ -31,16 +31,11 @@ def load_local_env(env_file: Path | None = None) -> None:
 def get_database_url() -> str | None:
     """Resolve database URL from common environment variable names.
 
-    Precedence:
-    1) LINK_POSTGREE_DB
-    2) SUPABASE_DB_URL
-    3) DATABASE_URL
+    Currently, only LINK_POSTGREE_DB is considered.
     """
     load_local_env()
     return (
         os.getenv("LINK_POSTGREE_DB")
-        or os.getenv("SUPABASE_DB_URL")
-        or os.getenv("DATABASE_URL")
     )
 
 def connect__postgres(db_url: str) -> psycopg.Connection:

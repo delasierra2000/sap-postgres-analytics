@@ -1,9 +1,0 @@
-- Definition of a matrix
-- Nomenclature of the elements of a matrix by row and column (i and j)
-- Concept of matrix dimensions, with an example
-- Important terminology: principal diagonal, secondary diagonal, triangular matrix, zero matrix, identity matrix, etc.
-- Matrix operations (matrix addition, scalar multiplication, and matrix multiplication). For each operation, include:
-	-The necessary conditions to perform it.	
-	-The procedure.
-	-An example.
-	-Its properties.

@@ -19,8 +19,7 @@ def run_sql_file(conn: psycopg.Connection, sql_path: str | Path) -> None:
         raise FileNotFoundError(f"SQL file not found: {sql_file}")
 
     sql_text = sql_file.read_text(encoding="utf-8").strip()
-    print("mirando SQL file content:")
-    print(sql_text)
+    
     if not sql_text:
         return
 
