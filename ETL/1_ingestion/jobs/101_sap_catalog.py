@@ -28,15 +28,15 @@ if __name__ == "__main__":
 
         # Tables and columns to load into Supabase PostgreSQL
         LOAD_TABLE = [
-            # ["kna1", ["mandt", "kunnr", "name1", "land1", "ort01", "stceg", "ktokd", "telf1", "operation_flag"]],
-            # ["vbak", ["mandt", "vbeln", "erdat", "kunnr", "vkorg", "vtweg", "spart", "netwr", "waerk", "audat", "bstnk", "operation_flag"]],
-            # ["vbap", ["mandt", "vbeln", "posnr", "matnr", "netpr", "kwmeng", "vrkme", "meins", "abgru", "operation_flag"]],
+            ["kna1", ["mandt", "kunnr", "name1", "land1", "ort01", "stceg", "ktokd", "telf1", "operation_flag"]],
+            ["vbak", ["mandt", "vbeln", "erdat", "kunnr", "vkorg", "vtweg", "spart", "netwr", "waerk", "audat", "bstnk", "operation_flag"]],
+            ["vbap", ["mandt", "vbeln", "posnr", "matnr", "netpr", "kwmeng", "vrkme", "meins", "abgru", "operation_flag"]],
             ["vbrk", ["mandt", "vbeln", "fkdat", "kunag", "netwr", "waerk", "fkart", "bukrs", "vbtyp", "operation_flag"]],
-            # ["vbrp", ["mandt", "vbeln", "posnr", "matnr", "fkimg", "vrkme", "netwr", "meins", "aubel", "aupos", "operation_flag"]],
-            # ["mara", ["mandt", "matnr", "mtart", "mbrsh", "matkl", "meins", "ersda", "operation_flag"]],
-            # ["vbpa", ["mandt", "vbeln", "posnr", "parvw", "kunnr", "operation_flag"]],
-            # ["t001w", ["mandt", "werks", "name1", "land1", "operation_flag"]],
-            # ["makt", ["mandt", "matnr", "spras", "maktx", "operation_flag"]]
+            ["vbrp", ["mandt", "vbeln", "posnr", "matnr", "fkimg", "vrkme", "netwr", "meins", "aubel", "aupos", "operation_flag"]],
+            ["mara", ["mandt", "matnr", "mtart", "mbrsh", "matkl", "meins", "ersda", "operation_flag"]],
+            ["vbpa", ["mandt", "vbeln", "posnr", "parvw", "kunnr", "operation_flag"]],
+            ["t001w", ["mandt", "werks", "name1", "land1", "operation_flag"]],
+            ["makt", ["mandt", "matnr", "spras", "maktx", "operation_flag"]]
             ]
 
         # Iterate over each table and load data into Supabase PostgreSQL
